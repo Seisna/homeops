@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Template for deploying k3s backed by Flux
+=======
+# Template for deploying k3s backed by Flux!!
+>>>>>>> cea35eb9f92a36f6ec4e9a12746f730215cccc9f
 
 Highly opinionated template for deploying a single [k3s](https://k3s.io) cluster with [Ansible](https://www.ansible.com) and [Terraform](https://www.terraform.io) backed by [Flux](https://toolkit.fluxcd.io/) and [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/).
 

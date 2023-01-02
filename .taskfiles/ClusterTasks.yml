@@ -34,6 +34,10 @@ tasks:
     desc: Gets the dash key
     cmds:
       - kubectl -n monitoring get secret kubernetes-dashboard -o jsonpath='{.data.token}'
+  webhook:
+    desc: get webhookkey
+    cmd:
+      - kubectl -n flux-system get receiver/github-receiver --kubeconfig=./kubeconfig
   hr-restart:
     desc: Restart all failed Helm Releases
     cmds:

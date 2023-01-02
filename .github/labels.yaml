@@ -40,6 +40,8 @@
   color: "FF9800"
 - name: type/major
   color: "F6412D"
+- name: type/break
+  color: "F6412D"
 # Uncategorized
 - name: bug
   color: "ee0701"
@@ -49,7 +51,9 @@
   color: "F4D1B7"
 - name: enhancement
   color: "84b6eb"
-- name: link-checker
+- name: broken-links
   color: "7B55D7"
 - name: question
   color: "cc317c"
+- name: community
+  color: "0e8a16"

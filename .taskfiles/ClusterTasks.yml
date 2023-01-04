@@ -30,6 +30,12 @@ tasks:
     cmds:
       - flux reconcile -n flux-system source git home-kubernetes
       - flux reconcile -n flux-system kustomization cluster
+
+  fluxkustomizations:
+    desc: Get kustomizations through flux
+    cmds:
+      - flux get kustomizations
+
   dashkey:
     desc: Gets the dash key
     cmds:

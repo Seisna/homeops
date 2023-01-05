@@ -6,7 +6,7 @@ metadata:
 provisioner: nfs.csi.k8s.io
 parameters:
   server: expanse.nagel.family
-  share: /eros/Apps/PVCs
+  share: /volume1/Apps/PVCs
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 mountOptions:
@@ -22,7 +22,7 @@ metadata:
 provisioner: nfs.csi.k8s.io
 parameters:
   server: expanse.nagel.family
-  share: /share/PVCs
+  share: /volume1/Share/PVCs
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 mountOptions:

@@ -35,6 +35,7 @@ tasks:
     desc: Get kustomizations through flux
     cmds:
       - flux get kustomizations
+      - flux get all -A --status-selector ready=false
 
   dashkey:
     desc: Gets the dash key

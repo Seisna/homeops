@@ -31,7 +31,7 @@ tasks:
       - flux reconcile -n flux-system source git home-kubernetes
       - flux reconcile -n flux-system kustomization cluster
 
-  fluxkustomizations:
+  debug:
     desc: Get kustomizations through flux
     cmds:
       - flux get kustomizations

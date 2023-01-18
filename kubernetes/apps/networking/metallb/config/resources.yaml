@@ -25,4 +25,4 @@ metadata:
 spec:
   myASN: 64512
   peerASN: 64513
-  peerAddress: 10.10.10.1
+  peerAddress: 10.10.10.254

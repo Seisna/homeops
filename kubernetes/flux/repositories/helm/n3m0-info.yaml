@@ -6,4 +6,4 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
-  url: https://github.com/fiend-dk/n3m0-info
+  url: https://stefanprodan.github.io/podinfo

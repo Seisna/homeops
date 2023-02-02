@@ -5,6 +5,7 @@ resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml
   - ./echo-server/ks.yaml
+  - ./glauth/ks.yaml
   - ./hajimari/ks.yaml
   - ./n3m0-info/ks.yaml
   - ./redis/ks.yaml

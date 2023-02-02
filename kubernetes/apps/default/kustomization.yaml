@@ -6,5 +6,5 @@ resources:
   - ./cloudnative-pg/ks.yaml
   - ./echo-server/ks.yaml
   - ./hajimari/ks.yaml
-  - ./n3m0-info/ks.yaml
+  #- ./n3m0-info/ks.yaml
   - ./redis/ks.yaml

@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: echo-server
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: n3m0-info
+      version: 1.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      strategy: RollingUpdate
+    image:
+      repository: ghcr.io/stefanprodan/podinfo
+      tag: 6.0.3
+      pullPolicy: IfNotPresent
+    ui:
+      color: "#34577c"
+      message: "👋 Greetings, Nerds!!"
+      logo: "https://geek-cookbook.funkypenguin.co.nz/images/site-logo.svg"
+    # failure conditions
+    faults:
+      delay: false
+      error: false
+      unhealthy: false
+      unready: false
+      testFail: false
+      testTimeout: false
+    service:
+      main:
+        ports:
+          http:
+            port: &port 8080
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /health
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          hajimari.io/icon: video-input-antenna
+        hosts:
+          - host: &host "${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    resources:
+      requests:
+        cpu: 5m
+        memory: 10Mi
+      limits:
+        memory: 50Mi

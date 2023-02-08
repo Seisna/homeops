@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -27,32 +28,27 @@ spec:
     keepHistory: false
   values:
     controller:
+      replicaCount: 2
       extraEnvs:
         - name: TZ
-          value: "${TIMEZONE}"
+          value: America/New_York
       service:
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: "${METALLB_INGRESS_ADDR}"
+        externalIPs: ["${SVC_NGINX_ADDR}"]
         externalTrafficPolicy: Local
-      publishService:
-        enabled: true
       ingressClassResource:
         default: true
       config:
-        client-header-timeout: 120
         client-body-buffer-size: "100M"
         client-body-timeout: 120
-        custom-http-errors: 400,401,403,404,500,502,503,504
+        client-header-timeout: 120
         enable-brotli: "true"
+        enable-real-ip: "true"
         forwarded-for-header: "CF-Connecting-IP"
         hsts-max-age: "31449600"
-        keep-alive: 120
         keep-alive-requests: 10000
-        proxy-body-size: "100M"
-        ssl-protocols: "TLSv1.3 TLSv1.2"
-        use-forwarded-headers: "true"
+        keep-alive: 120
         log-format-escape-json: "true"
-        log-format-upstream: >-
+        log-format-upstream: >
           {"time": "$time_iso8601", "remote_addr": "$proxy_protocol_addr",
           "x_forwarded_for": "$proxy_add_x_forwarded_for", "request_id": "$req_id",
           "remote_user": "$remote_user", "bytes_sent": $bytes_sent, "request_time": $request_time,
@@ -60,28 +56,38 @@ spec:
           "path": "$uri", "request_query": "$args", "request_length": $request_length,
           "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer",
           "http_user_agent": "$http_user_agent"}
+        proxy-body-size: 0
+        proxy-buffer-size: "16k"
+        ssl-protocols: "TLSv1.3 TLSv1.2"
+        use-forwarded-headers: "true"
       metrics:
-        enabled: false
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          namespace: networking
+          namespaceSelector:
+            any: true
       extraArgs:
         default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/component: controller
       podAnnotations:
-        configmap.reloader.stakater.com/reload: cloudflare-networks
+        configmap.reloader.stakater.com/reload: "cloudflare-proxied-networks"
       resources:
         requests:
           cpu: 10m
           memory: 250Mi
         limits:
           memory: 500Mi
+    # Note: obsidian-livesync does not work with a default backend enabled
     defaultBackend:
-      enabled: true
-      image:
-        repository: ghcr.io/tarampampam/error-pages
-        tag: 2.19.0
-      extraEnvs:
-        - name: TEMPLATE_NAME
-          value: lost-in-space
-        - name: SHOW_DETAILS
-          value: "false"
+      enabled: false
   valuesFrom:
     # Cloudflare Networks
     # https://www.cloudflare.com/ips/

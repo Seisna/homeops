@@ -6,6 +6,9 @@ metadata:
   name: cluster-apps-cloudnative-pg
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-local-path-provisioner
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/default/cloudnative-pg/app
   prune: true
   sourceRef:

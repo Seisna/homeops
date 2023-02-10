@@ -17,4 +17,5 @@ resources:
   - ./metrics-server.yaml
   - ./podinfo.yaml
   - ./stakater.yaml
+  - ./tf-controller.yaml
   - ./weave-gitops.yaml

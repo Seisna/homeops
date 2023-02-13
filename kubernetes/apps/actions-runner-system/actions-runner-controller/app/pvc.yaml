@@ -10,7 +10,8 @@ metadata:
     excluded_from_alerts: "true"
 spec:
   storageClassName: local-path
-  accessModes: ["ReadWriteMany"]
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
       storage: 8Gi

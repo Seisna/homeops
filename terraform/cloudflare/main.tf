@@ -3,7 +3,7 @@ terraform {
     hostname     = "app.terraform.io"
     organization = "Seistrup-Nagel"
     workspaces {
-      name = "n3m0"
+      name = "homeops-cloudflare"
     }
   }
   required_providers {

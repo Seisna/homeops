@@ -28,6 +28,9 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  storage:
+    size: 8Gi
+    storageClass: local-path
   values:
     image:
       repository: ghcr.io/actions-runner-controller/actions-runner-controller

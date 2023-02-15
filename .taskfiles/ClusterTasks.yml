@@ -76,7 +76,7 @@ tasks:
     cmds:
       - kubectl get ingress {{.CLI_ARGS | default "-A"}}
   
-    gr-sync:
+  gr-sync:
     desc: Sync Flux GitRepositories
     cmds:
       - |

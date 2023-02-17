@@ -50,7 +50,7 @@ spec:
       target:
         kind: Deployment
         name: "(kustomize-controller|helm-controller|source-controller)"
-       - patch: |
+    - patch: |
         apiVersion: apps/v1
         kind: Deployment
         metadata:

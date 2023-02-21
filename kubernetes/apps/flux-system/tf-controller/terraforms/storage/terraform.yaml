@@ -1,19 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/ocirepository_v1beta2.json
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
-metadata:
-  name: terraform-storage
-  namespace: flux-system
-spec:
-  interval: 1m
-  url: oci://ghcr.io/onedr0p/terraform-storage-oci
-  ref:
-    tag: main
-  # Note: This is not ready for primetime
-  # verify:
-  #   provider: cosign
----
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/terraform_v1alpha1.json
 apiVersion: infra.contrib.fluxcd.io/v1alpha1
 kind: Terraform
@@ -24,10 +9,10 @@ spec:
   suspend: true
   approvePlan: auto
   interval: 12h
-  path: ./
+  path: ./terraform/storage
   sourceRef:
-    kind: OCIRepository
-    name: terraform-storage
+    kind: GitRepository
+    name: home-kubernetes
     namespace: flux-system
   backendConfig:
     disable: true

@@ -9,7 +9,7 @@ spec:
   suspend: false
   approvePlan: auto
   interval: 12h
-  path: ./terraform/cloudflare
+  path: /terraform/cloudflare
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

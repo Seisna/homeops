@@ -1,7 +1,7 @@
 terraform {
   cloud {
     hostname     = "app.terraform.io"
-    organization = "onedr0p"
+    organization = "Seistrup-Nagel"
     workspaces {
       name = "arpa-home-storage"
     }

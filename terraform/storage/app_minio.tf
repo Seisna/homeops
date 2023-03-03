@@ -45,7 +45,7 @@ resource "kubernetes_stateful_set_v1" "minio" {
           }
           env {
             name  = "MINIO_API_CORS_ALLOW_ORIGIN"
-            value = "http://minio.turbo.ac,http://s3.turbo.ac"
+            value = "http://minio.nagel.family,http://s3.nagel.family"
           }
           env {
             name  = "MINIO_BROWSER_REDIRECT_URL"
